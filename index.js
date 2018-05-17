@@ -1,79 +1,44 @@
-const form = document.querySelector('form#form1')
+var form = document.querySelector('form#form1')
+const list = document.createElement('ul')
+const tasks = document.querySelector('#tasks')
 
-id = 0
 lastid = 0
-itemid = 0
-
-function renderColor(color) {
-  const colorDiv = document.createElement('div')
-  colorDiv.style.backgroundColor = color
-  colorDiv.style.width = '6rem'
-  colorDiv.style.height = '3rem'
-
-  return colorDiv
-}
-
-function removeName(list, itemid){
-  var item = document.getElementById(itemid);
-  list.removeChild(item);
-}
-
-function renderListItem(label, value) {
-  const item = document.createElement('li')
-  const term = document.createElement('dt')
-  term.textContent = label
-
-  const description = document.createElement('dd')
-
-  try {
-    description.appendChild(value)
-  } catch(e) {
-    description.textContent += value
-  }
-
-  item.appendChild(term)
-  item.appendChild(description)
-  return item
-}
-
-function renderList(data) {
-  const list = document.createElement('dl')
-  Object.keys(data).forEach(label => {
-    const item = renderListItem(label, data[label])
-    list.appendChild(item)
-  })
-  return list
-}
 
 const handleSubmit = function(ev) {
   ev.preventDefault()
-  const form = ev.target
-  const task = {
-    'Name': form.name.value,
-    'Deadline': form.deadline.value,
-  }
-
-  list = renderList(task)
-  list.setAttribute('id','item'+lastid)
-
-  lastid = id
-  itemid = id++
+  form = document.querySelector('form#form1')
+  const task = document.createElement('li')
+  task.textContent = 'Name: ' + form.name.value + ' Deadline: ' + form.deadline.value
+//   console.log(task)
   
+  task.setAttribute('id',lastid)
+
   var removeButton = document.createElement('button')
   removeButton.appendChild(document.createTextNode("remove"))
-  removeButton.setAttribute('onClick','removeName("list,'+'item'+lastid+'")')
-  console.log('removeName("list,'+'item'+lastid+'")')
+  removeButton.setAttribute('onClick','removeName("'+lastid+'")')
+  console.log(lastid)
 
-  list.appendChild(removeButton)
-
-  const tasks = document.querySelector('#tasks')
+  task.appendChild(removeButton)
+  lastid +=1
+  list.appendChild(task)
   tasks.appendChild(list)
 
   form.reset()
   form.name.focus()
 }
 
+lastid+=1
 form.addEventListener('submit', handleSubmit)
+
+function removeName(itemid){
+    // console.log(itemid)
+    // console.log(tasks.childNodes)
+    const item = document.getElementById(itemid)
+    // console.log(tasks.childNodes[itemid])
+    item.parentNode.removeChild(item);
+}
+
+
 
 // $.noConflict();
 // jQuery(document).ready(function($) {
