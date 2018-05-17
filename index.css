@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
 body {
-    font-family: sans-serif;
+  font-family: Dosis, sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+#form {
+  background-color: #eeeeee;
+  border: 1px solid #e3e3e3;
+  padding: 1rem;
+}
+
+dl {
+  padding: 1rem;
+}
+
+dl li {
+  list-style: none;
+}
+
+dl:nth-of-type(even) {
+  background-color: WhiteSmoke;
 }
